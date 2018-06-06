@@ -1,45 +1,47 @@
-import React from 'react'
+import React from "react";
+import { Modal, View, Image, Text, Button, StyleSheet } from "react-native";
 
-import {Modal, View, Image, Text, Button, StyleSheet} from 'react-native'
-
-const PlaceDetail = (props) => {
-  let modalContent
+const placeDetail = props => {
+  let modalContent = null;
 
   if (props.selectedPlace) {
     modalContent = (
       <View>
-        <Image source={props.selectedPlace.image} style={styles.img} />
-        <Text style={styles.placeText}>{props.selectedPlace.name}</Text>
+        <Image source={props.selectedPlace.image} style={styles.placeImage} />
+        <Text style={styles.placeName}>{props.selectedPlace.name}</Text>
       </View>
-    )
+    );
   }
-
   return (
-    <Modal visible={props.selectedPlace !== null} animationType="slide" onRequestClose={props.onModalClosed}>
+    <Modal
+      onRequestClose={props.onModalClosed}
+      visible={props.selectedPlace !== null}
+      animationType="slide"
+    >
       <View style={styles.modalContainer}>
         {modalContent}
         <View>
+          <Button title="Delete" color="red" onPress={props.onItemDeleted} />
           <Button title="Close" onPress={props.onModalClosed} />
-          <Button title="Remove" onPress={props.onItemDeleted}/>
         </View>
       </View>
     </Modal>
-  )
-}
+  );
+};
 
 const styles = StyleSheet.create({
   modalContainer: {
     margin: 22
   },
-  img: {
-    width: '100%',
+  placeImage: {
+    width: "100%",
     height: 200
   },
-  placeText: {
-    fontWeight: '700',
-    textAlign: 'center',
+  placeName: {
+    fontWeight: "bold",
+    textAlign: "center",
     fontSize: 28
   }
-})
+});
 
-export default PlaceDetail
+export default placeDetail;
